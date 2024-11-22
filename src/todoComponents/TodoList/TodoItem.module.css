@@ -1,36 +1,84 @@
+/* Todo item container */
 .todo {
-  margin: 1rem 0;
-  padding: 1rem;
-  background-color: #9c7eee;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  animation: animate-in 1s ease-out forwards;
+  position: relative;
+  margin: 1.5rem 0; /* Increased vertical spacing between todo items */
+  padding: 2rem; /* Added more padding for internal spacing */
+  background-color: #b3a0f0; /* Softer, lighter purple */
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  animation: animate-in 0.8s ease-out forwards;
+  transition: all 0.3s ease;
 }
 
+/* Hover effect for Todo item */
+.todo:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background-color: #9c7eee;
+}
+
+/* Anchor tags within Todo item */
 .todo a {
   text-decoration: none;
 }
 
+/* Title of the todo item */
 .title {
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #543280;
-  margin: 0;
+  font-size: 1.2rem; /* Slightly larger title */
+  font-weight: 600;
+  color: #4f3274;
+  margin: 0 0 0.6rem 0; /* Increased bottom margin for space */
   text-transform: uppercase;
+  letter-spacing: 1.5px; /* More space between letters */
+  transition: color 0.3s ease;
 }
 
+/* Title hover effect */
+.todo:hover .title {
+  color: #3a2055;
+}
+
+/* Description styling */
 .description {
   white-space: pre-wrap;
-  font-size: 1.25rem;
-  margin: 0.25rem 0 0 0;
-  color: #593884;
+  font-size: 1.2rem;
+  margin: 0.8rem 0 1rem 0; /* Increased top and bottom margin for space */
+  color: #3b2b4f;
   font-style: italic;
+  line-height: 1.6; /* Increased line-height for better readability */
+  max-width: 95%;
 }
 
+/* Delete button styling */
+.deleteButton {
+  position: absolute;
+  bottom: 16px; /* Increased space from bottom */
+  right: 16px; /* Increased space from right */
+  cursor: pointer;
+  color: #f1e6f2;
+  font-size: 1.4rem; /* Slightly larger icon */
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Delete button hover effect */
+.deleteButton:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: #f1e6f2;
+}
+
+/* Delete button active state */
+.deleteButton:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Animation for the todo item */
 @keyframes animate-in {
   from {
     opacity: 0;
-    transform: translateY(1rem);
+    transform: translateY(2rem);
   }
   to {
     opacity: 1;

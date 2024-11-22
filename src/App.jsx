@@ -11,6 +11,7 @@ function App() {
   function handleShowModal() {
     setShowModal((prevState) => !prevState);
   }
+
   return (
     <>
       <TodoContextProvider>
