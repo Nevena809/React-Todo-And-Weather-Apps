@@ -5,6 +5,7 @@ const TodoContext = createContext({
   addTodo: (todo) => {},
   deleteTodo: (id) => {},
   updateTodo: (id) => {},
+  addAllTodos: (todos) => {},
 });
 
 function todoReducer(state, action) {
@@ -47,23 +48,40 @@ function todoReducer(state, action) {
     return { ...state, todos: todoData };
   }
 
+  if (action.type === "ADD_ALL_TODO") {
+    return { ...state, todos: action.todos };
+  }
+
   return state;
 }
 
 export function TodoContextProvider({ children }) {
   const [list, dispatch] = useReducer(todoReducer, { todos: [] });
 
-  const todoContext = {
-    todos: list.todos,
-  };
-
   function addTodo(todo) {
-    dispatch({});
+    dispatch({ type: "ADD_TODO", todo });
   }
 
   function deleteTodo(id) {
-    dispatch({});
+    dispatch({ type: "DELETE_TODO", id });
   }
+
+  function updateTodo(id) {
+    dispatch({ type: "UPDATE_TODO", id });
+  }
+
+  function addAllTodos(todos) {
+    dispatch({ type: "ADD_ALL_TODO", todos });
+  }
+
+  const todoContext = {
+    todos: list.todos,
+    addTodo,
+    deleteTodo,
+    updateTodo,
+    addAllTodos,
+  };
+
   return (
     <TodoContext.Provider value={todoContext}>{children}</TodoContext.Provider>
   );

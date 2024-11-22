@@ -1,18 +1,53 @@
-// import { useEffect, useState } from "react";
+// import { useCallback, useEffect, useState } from "react";
 
-// async function getData() {
-//     const response = await fetch(
-//       "https://66d556e5f5859a704265a896.mockapi.io/api/v1/todos"
+// async function sendHttpRequest(url, config) {
+//   const response = await fetch(url, config);
+
+//   const resData = await response.json();
+
+//   if (!response.ok) {
+//     throw new Error(
+//       resData.message || "Something went wrong, faild to sen request"
 //     );
-//     const data = await response.json();
-//     console.log(data);
-//     return data;
 //   }
-// export default function useHttpTodo() {
-//     const [data, setData] = useState()
 
-//     useEffect(() => {
+//   return resData;
+// }
 
-//     }, [])
-//   return;
+// export default function useHttpTodo(url, config, initialData) {
+//   const [data, setData] = useState(initialData);
+//   const [error, setError] = useState();
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   function clearData() {
+//     setData(initialData);
+//   }
+
+//   const sendRequest = useCallback(
+//     async function sendRequest(data) {
+//       setIsLoading(true);
+//       try {
+//         const resData = await sendHttpRequest(url, { ...config, body: data });
+//         setData(resData);
+//       } catch (error) {
+//         setError(error.message || "Something went wrong");
+//       }
+//       setIsLoading(false);
+//     },
+//     [url, config]
+//   );
+
+//   useEffect(() => {
+//     if (config && (config.method === "GET" || !config.method)) {
+//       sendRequest();
+//     }
+//   }, [sendRequest, config]);
+
+//   return {
+//     data,
+//     isLoading,
+//     error,
+//     sendRequest,
+//     clearData,
+//   };
 // }

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import Todo from "./TodoItem";
+import { useContext, useEffect } from "react";
+import TodoItem from "./TodoItem";
 import classes from "./TodoList.module.css";
+import TodoContext from "../../store/TodoContext";
 
 export default function TodoList() {
-  const [loadedTodo, setLoadedTodo] = useState([]);
+  const todoCtx = useContext(TodoContext);
 
   useEffect(() => {
     async function getData() {
@@ -11,18 +12,16 @@ export default function TodoList() {
         "https://66d556e5f5859a704265a896.mockapi.io/api/v1/todos"
       );
 
-      if (!response.ok) {
-      }
       const todoData = await response.json();
-      setLoadedTodo(todoData);
+      todoCtx.addAllTodos(todoData);
     }
     getData();
   }, []);
 
   return (
     <ul className={classes.todos}>
-      {loadedTodo.map((todo) => (
-        <Todo key={todo.id} todo={todo}></Todo>
+      {todoCtx.todos?.map((todo) => (
+        <TodoItem key={todo.id} todo={todo}></TodoItem>
       ))}
     </ul>
   );

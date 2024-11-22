@@ -30,8 +30,12 @@
   cursor: pointer;
   font-weight: bold;
   text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .button:hover {
   background-color: #8c6cf7;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
