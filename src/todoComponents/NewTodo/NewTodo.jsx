@@ -13,21 +13,28 @@ export default function NewTodo({ hideModal }) {
     const enteredTitle = text.current.value;
     const enteredDesc = description.current.value;
 
+    const response = await fetch(
+      "https://66d5fefbf5859a704268148c.mockapi.io/api/v1/getTodos",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: enteredTitle,
+          description: enteredDesc,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+
     todoCtx.addTodo({
+      id: data.id,
       title: enteredTitle,
       description: enteredDesc,
     });
 
-    await fetch("https://66d556e5f5859a704265a896.mockapi.io/api/v1/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title: enteredTitle,
-        description: enteredDesc,
-      }),
-    });
     hideModal();
   }
   return (

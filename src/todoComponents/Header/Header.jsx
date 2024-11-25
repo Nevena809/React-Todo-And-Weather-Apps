@@ -1,5 +1,6 @@
 import { MdPostAdd, MdMessage } from "react-icons/md";
 import classes from "./Header.module.css";
+/* eslint-disable react/prop-types */
 
 export default function Header({ showModal }) {
   return (

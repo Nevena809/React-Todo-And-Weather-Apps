@@ -4,6 +4,7 @@ import TodoList from "./todoComponents/TodoList/TodoList";
 import NewTodo from "./todoComponents/NewTodo/NewTodo";
 import { useState } from "react";
 import { TodoContextProvider } from "./store/TodoContext";
+import { TypeContextProvider } from "./store/TypeContext";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -13,7 +14,7 @@ function App() {
   }
 
   return (
-    <>
+    <TypeContextProvider>
       <TodoContextProvider>
         <Header showModal={handleShowModal}></Header>
         {showModal && <NewTodo hideModal={handleShowModal}></NewTodo>}
@@ -21,7 +22,7 @@ function App() {
           <TodoList></TodoList>
         </main>
       </TodoContextProvider>
-    </>
+    </TypeContextProvider>
   );
 }
 

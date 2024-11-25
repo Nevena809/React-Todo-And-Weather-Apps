@@ -9,10 +9,12 @@ export default function TodoList() {
   useEffect(() => {
     async function getData() {
       const response = await fetch(
-        "https://66d556e5f5859a704265a896.mockapi.io/api/v1/todos"
+        "https://66d5fefbf5859a704268148c.mockapi.io/api/v1/getTodos"
       );
 
       const todoData = await response.json();
+      console.log(todoData);
+
       todoCtx.addAllTodos(todoData);
     }
     getData();
@@ -21,7 +23,7 @@ export default function TodoList() {
   return (
     <ul className={classes.todos}>
       {todoCtx.todos?.map((todo) => (
-        <TodoItem key={todo.id} todo={todo}></TodoItem>
+        <TodoItem key={todo.id} todo={todo} id={todo.id}></TodoItem>
       ))}
     </ul>
   );

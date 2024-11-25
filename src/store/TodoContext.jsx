@@ -1,17 +1,20 @@
 import { createContext, useReducer } from "react";
+/* eslint-disable react/prop-types */
 
 const TodoContext = createContext({
   todos: [],
-  addTodo: (todo) => {},
-  deleteTodo: (id) => {},
-  updateTodo: (id) => {},
-  addAllTodos: (todos) => {},
+  addTodo: () => {},
+  deleteTodo: () => {},
+  updateTodo: () => {},
+  addAllTodos: () => {},
 });
 
 function todoReducer(state, action) {
   if (action.type === "ADD_TODO") {
     const existingTodoData = [...state.todos];
     existingTodoData.push(action.todo);
+
+    console.log(existingTodoData);
 
     return { ...state, todos: existingTodoData };
   }
