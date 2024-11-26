@@ -65,6 +65,17 @@
     box-shadow 0.3s ease;
 }
 
+.updateButton {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  cursor: pointer;
+  color: #f1e6f2;
+  font-size: 1.4rem;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
 .deleteButton:hover {
   transform: translateY(-4px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);

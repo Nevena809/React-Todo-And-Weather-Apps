@@ -1,8 +1,14 @@
 import { MdPostAdd, MdMessage } from "react-icons/md";
 import classes from "./Header.module.css";
-/* eslint-disable react/prop-types */
+import { useContext } from "react";
+import TypeContext from "../../store/TypeContext";
 
-export default function Header({ showModal }) {
+export default function Header() {
+  const typeCtx = useContext(TypeContext);
+
+  function handleShowModal() {
+    typeCtx.showModal("newTodo");
+  }
   return (
     <header className={classes.header}>
       <h1 className={classes.logo}>
@@ -10,7 +16,7 @@ export default function Header({ showModal }) {
         Todo App
       </h1>
       <p>
-        <button onClick={showModal} className={classes.button}>
+        <button onClick={handleShowModal} className={classes.button}>
           <MdPostAdd size={18} />
           New Post
         </button>

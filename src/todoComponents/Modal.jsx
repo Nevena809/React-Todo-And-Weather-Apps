@@ -2,20 +2,22 @@ import { createPortal } from "react-dom";
 import classes from "./Modal.module.css";
 import { useRef, useEffect } from "react";
 
-export default function Modal({ children, open }) {
+export default function Modal({ children, open, onClose }) {
   const dialog = useRef();
 
   useEffect(() => {
+    const modal = dialog.current;
     if (open) {
-      dialog.current.showModal();
+      modal.showModal();
     }
+
+    return () => modal.close();
   }, [open]);
   return createPortal(
-    <div className={classes.backdrop}>
-      <dialog ref={dialog} className={classes.modal}>
-        {children}
-      </dialog>
-    </div>,
+    <dialog ref={dialog} className={classes.modal} onClose={onClose}>
+      {children}
+    </dialog>,
+
     document.getElementById("modal")
   );
 }

@@ -1,39 +1,71 @@
+// import { createContext, useState } from "react";
+// /* eslint-disable react/prop-types */
+
+// const TypeContext = createContext({
+//   isOpen: false,
+//   buttonType: "",
+//   showModal: () => {},
+//   hideModal: () => {},
+// });
+
+// export function TypeContextProvider({ children }) {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [buttonType, setButtonType] = useState("");
+
+//   function showModal(type) {
+//     setIsOpen(true);
+//     setButtonType(type);
+//   }
+
+//   function hideModal() {
+//     setIsOpen(false);
+//   }
+
+//   const typeCtx = {
+//     isOpen,
+//     buttonType,
+//     showModal,
+//     hideModal,
+//   };
+//   return (
+//     <TypeContext.Provider value={typeCtx}>{children}</TypeContext.Provider>
+//   );
+// }
+
+// export default TypeContext;
+
 import { createContext, useState } from "react";
 /* eslint-disable react/prop-types */
 
 const TypeContext = createContext({
-  type: "",
-  showNewTodo: () => {},
-  hideNewTodo: () => {},
-  showUpdate: () => {},
-  hideUpdate: () => {},
+  showModal: () => {},
+  hideModal: () => {},
+  modalData: null,
+  isOpen: false,
+  buttonType: "newTodo", // newTodo or updateTodo
 });
 
 export function TypeContextProvider({ children }) {
-  const [todoType, setTodoType] = useState("");
+  const [modalData, setModalData] = useState(null); // Store the todo data
+  const [isOpen, setIsOpen] = useState(false);
+  const [buttonType, setButtonType] = useState("newTodo"); // This will differentiate new vs update
 
-  function showNewTodo() {
-    setTodoType("show-new");
+  function showModal(type, data) {
+    setIsOpen(true);
+    setButtonType(type);
+    setModalData(data); // Pass data to modal if it's an update
   }
 
-  function hideNewTodo() {
-    setTodoType("");
-  }
-
-  function showUpdate() {
-    setTodoType("show-update");
-  }
-
-  function hideUpdate() {
-    setTodoType("");
+  function hideModal() {
+    setIsOpen(false);
   }
 
   const typeCtx = {
-    type: todoType,
-    showNewTodo,
-    hideNewTodo,
-    showUpdate,
-    hideUpdate,
+    isOpen,
+    buttonType,
+    modalData,
+    showModal,
+    hideModal,
   };
 
   return (

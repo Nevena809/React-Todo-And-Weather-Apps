@@ -42,8 +42,8 @@ function todoReducer(state, action) {
     // update items with new data
     const updateItems = {
       ...existingTodoData,
-      title: existingTodoData.title,
-      description: existingTodoData.description,
+      title: existingTodoData,
+      description: existingTodoData,
     };
 
     todoData[existingTodoIndex] = updateItems; //overrideing existing todo with new data
