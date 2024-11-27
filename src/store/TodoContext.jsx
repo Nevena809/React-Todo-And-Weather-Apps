@@ -11,48 +11,36 @@ const TodoContext = createContext({
 
 function todoReducer(state, action) {
   if (action.type === "ADD_TODO") {
-    const existingTodoData = [...state.todos];
-    existingTodoData.push(action.todo);
+    const todoData = [...state.todos];
+    todoData.push(action.todo);
 
-    console.log(existingTodoData);
-
-    return { ...state, todos: existingTodoData };
+    return { ...state, todos: todoData };
   }
 
   if (action.type === "DELETE_TODO") {
     const existingTodoIndex = state.todos.findIndex(
-      (todo) => todo.id === action.id
+      (todo) => todo.id === action.todo.id
     );
 
-    const existingTodoData = [...state.todos];
-    existingTodoData.splice(existingTodoIndex, 1);
+    const todoData = [...state.todos];
+    todoData.splice(existingTodoIndex, 1);
 
-    return { ...state, todos: existingTodoData };
+    return { ...state, todos: todoData };
   }
 
   if (action.type === "UPDATE_TODO") {
-    // find index
     const existingTodoIndex = state.todos.findIndex(
-      (todo) => todo.id === action.id
+      (todo) => todo.id === action.todo.id
     );
 
-    const existingTodoData = state.todos[existingTodoIndex]; // finde one todo on specific index
-    const todoData = [...state.todos]; // copy all todo lists
-
-    // update items with new data
-    const updateItems = {
-      ...existingTodoData,
-      title: existingTodoData,
-      description: existingTodoData,
-    };
-
-    todoData[existingTodoIndex] = updateItems; //overrideing existing todo with new data
+    const todoData = [...state.todos];
+    todoData[existingTodoIndex] = action.todo;
 
     return { ...state, todos: todoData };
   }
 
   if (action.type === "ADD_ALL_TODO") {
-    return { ...state, todos: action.todos };
+    return { ...state, todos: action.todo };
   }
 
   return state;
@@ -65,16 +53,16 @@ export function TodoContextProvider({ children }) {
     dispatch({ type: "ADD_TODO", todo });
   }
 
-  function deleteTodo(id) {
-    dispatch({ type: "DELETE_TODO", id });
+  function deleteTodo(todo) {
+    dispatch({ type: "DELETE_TODO", todo });
   }
 
-  function updateTodo(id) {
-    dispatch({ type: "UPDATE_TODO", id });
+  function updateTodo(todo) {
+    dispatch({ type: "UPDATE_TODO", todo });
   }
 
-  function addAllTodos(todos) {
-    dispatch({ type: "ADD_ALL_TODO", todos });
+  function addAllTodos(todo) {
+    dispatch({ type: "ADD_ALL_TODO", todo });
   }
 
   const todoContext = {
@@ -91,3 +79,5 @@ export function TodoContextProvider({ children }) {
 }
 
 export default TodoContext;
+
+// action - predstavlja podatke koje treba da vartim u state

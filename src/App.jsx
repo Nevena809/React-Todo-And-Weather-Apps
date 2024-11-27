@@ -3,11 +3,11 @@ import Header from "./todoComponents/Header/Header";
 import TodoList from "./todoComponents/TodoList/TodoList";
 import NewTodo from "./todoComponents/NewTodo/NewTodo";
 import { TodoContextProvider } from "./store/TodoContext";
-import { TypeContextProvider } from "./store/TypeContext";
+import { ModalContextProvider } from "./store/ModalContext";
 
 function App() {
   return (
-    <TypeContextProvider>
+    <ModalContextProvider>
       <TodoContextProvider>
         <Header></Header>
         <NewTodo></NewTodo>
@@ -15,7 +15,7 @@ function App() {
           <TodoList></TodoList>
         </main>
       </TodoContextProvider>
-    </TypeContextProvider>
+    </ModalContextProvider>
   );
 }
 

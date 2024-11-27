@@ -1,13 +1,13 @@
 import { MdPostAdd, MdMessage } from "react-icons/md";
 import classes from "./Header.module.css";
 import { useContext } from "react";
-import TypeContext from "../../store/TypeContext";
+import ModalContext from "../../store/ModalContext";
 
 export default function Header() {
-  const typeCtx = useContext(TypeContext);
+  const modalCtx = useContext(ModalContext);
 
   function handleShowModal() {
-    typeCtx.showModal("newTodo");
+    modalCtx.showModal("newTodo");
   }
   return (
     <header className={classes.header}>
