@@ -10,7 +10,7 @@ export default function Header() {
     modalCtx.showModal("newTodo");
   }
   return (
-    <header className={classes.header}>
+    <div className={classes.header}>
       <h1 className={classes.logo}>
         <MdMessage />
         Todo App
@@ -21,6 +21,6 @@ export default function Header() {
           New Post
         </button>
       </p>
-    </header>
+    </div>
   );
 }

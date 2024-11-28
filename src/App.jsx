@@ -1,22 +1,17 @@
 import "./App.css";
-import Header from "./todoComponents/Header/Header";
-import TodoList from "./todoComponents/TodoList/TodoList";
-import NewTodo from "./todoComponents/NewTodo/NewTodo";
-import { TodoContextProvider } from "./store/TodoContext";
-import { ModalContextProvider } from "./store/ModalContext";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Todo from "./Todo";
+import Root from "./Root";
+import Weather from "./Weather";
+
+const router = createBrowserRouter([
+  { path: "/", element: <Root /> },
+  { path: "/weather", element: <Weather /> },
+  { path: "/todo", element: <Todo /> },
+]);
 
 function App() {
-  return (
-    <ModalContextProvider>
-      <TodoContextProvider>
-        <Header></Header>
-        <NewTodo></NewTodo>
-        <main>
-          <TodoList></TodoList>
-        </main>
-      </TodoContextProvider>
-    </ModalContextProvider>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;

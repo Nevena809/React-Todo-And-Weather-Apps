@@ -1,0 +1,40 @@
+/* General styling for the header and navigation */
+header {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  height: 100vh; /* Make header take full height of the viewport */
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center; /* Center the cards horizontally */
+  gap: 20px; /* Space between the cards */
+  padding: 0;
+}
+
+/* Style the links inside the cards */
+nav li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.75rem 3.5rem;
+  background-color: #a990fb;
+  color: #2a2630;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Hover effect to make the card "pop" */
+nav li a:hover {
+  background-color: #8c6cf7;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

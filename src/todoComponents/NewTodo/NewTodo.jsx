@@ -70,7 +70,10 @@ export default function NewTodo() {
   }
 
   function handleHideModal() {
-    modalCtx.hideModal();
+    modalCtx.hideModal("updateTodo", {
+      title: null,
+      description: null,
+    });
   }
 
   if (modalCtx.modalData && modalCtx.buttonType === "updateTodo") {
@@ -84,25 +87,11 @@ export default function NewTodo() {
         <p>
           <label htmlFor="todo">Todo</label>
 
-          <input
-            type="text"
-            id="todo"
-            name="todo"
-            required
-            ref={title}
-            // value={modalCtx.modalData?.title}
-          />
+          <input type="text" id="todo" name="todo" required ref={title} />
         </p>
         <p>
           <label htmlFor="desc">Description</label>
-          <textarea
-            id="desc"
-            name="desc"
-            required
-            rows={3}
-            ref={description}
-            // value={modalCtx.modalData?.description}
-          />
+          <textarea id="desc" name="desc" required rows={3} ref={description} />
         </p>
         <p className={classes.actions}>
           <button onClick={handleHideModal} type="button">

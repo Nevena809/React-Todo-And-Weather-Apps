@@ -20,8 +20,10 @@ export function ModalContextProvider({ children }) {
     setModalData(data);
   }
 
-  function hideModal() {
+  function hideModal(type, data) {
     setIsOpen(false);
+    setButtonType(type);
+    setModalData(data);
   }
 
   const typeCtx = {

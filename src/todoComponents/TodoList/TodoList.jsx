@@ -4,7 +4,7 @@ import classes from "./TodoList.module.css";
 import TodoContext from "../../store/TodoContext";
 
 export default function TodoList() {
-  const todoCtx = useContext(TodoContext);
+  const { todos, addAllTodos } = useContext(TodoContext);
 
   useEffect(() => {
     async function getData() {
@@ -15,14 +15,14 @@ export default function TodoList() {
       const todoData = await response.json();
       console.log(todoData);
 
-      todoCtx.addAllTodos(todoData);
+      addAllTodos(todoData);
     }
     getData();
   }, []);
 
   return (
     <ul className={classes.todos}>
-      {todoCtx.todos?.map((todo) => (
+      {todos?.map((todo) => (
         <TodoItem key={todo.id} todo={todo} id={todo.id}></TodoItem>
       ))}
     </ul>
