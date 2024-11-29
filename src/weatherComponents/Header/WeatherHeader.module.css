@@ -1,0 +1,66 @@
+.header {
+  padding: 2rem 10%;
+  /* margin: 2rem 10%; */
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ece1fa;
+}
+
+.logo {
+  font-size: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  color: #ece1fa;
+}
+
+/* Add this CSS for aligning the input and button side by side */
+.container {
+  display: flex;
+  gap: 1rem; /* Adjust the space between the input and button */
+}
+
+.input {
+  display: block;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 2px solid #d4b7f9;
+  background-color: #f3e6f7;
+  color: #4a3f56;
+  transition: all 0.3s ease-in-out;
+  flex: 1; /* Make the input grow to take available space */
+}
+
+.input:focus {
+  border-color: #7a4fcf;
+  outline: none;
+  box-shadow: 0 0 12px rgba(122, 79, 207, 0.6);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #a990fb;
+  color: #2a2630;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.button:hover {
+  background-color: #8c6cf7;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

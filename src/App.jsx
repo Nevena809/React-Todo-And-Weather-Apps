@@ -1,8 +1,8 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Todo from "./Todo";
-import Root from "./Root";
-import Weather from "./Weather";
+import Todo from "./Apps/Todo";
+import Root from "./Apps/Root";
+import Weather from "./Apps/Weather";
 
 const router = createBrowserRouter([
   { path: "/", element: <Root /> },

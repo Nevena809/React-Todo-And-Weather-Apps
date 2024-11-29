@@ -1,20 +1,18 @@
-/* General styling for the header and navigation */
 header {
   display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  height: 100vh; /* Make header take full height of the viewport */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 nav ul {
   list-style-type: none;
   display: flex;
-  justify-content: center; /* Center the cards horizontally */
-  gap: 20px; /* Space between the cards */
+  justify-content: center;
+  gap: 20px;
   padding: 0;
 }
 
-/* Style the links inside the cards */
 nav li a {
   display: inline-flex;
   align-items: center;
@@ -32,7 +30,6 @@ nav li a {
     box-shadow 0.3s ease;
 }
 
-/* Hover effect to make the card "pop" */
 nav li a:hover {
   background-color: #8c6cf7;
   transform: translateY(-4px);

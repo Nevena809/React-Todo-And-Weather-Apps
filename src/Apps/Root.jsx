@@ -1,4 +1,4 @@
-import MainNavigation from "./todoComponents/MainNavigation";
+import MainNavigation from "../todoComponents/MainNavigation";
 
 export default function Root() {
   return (
