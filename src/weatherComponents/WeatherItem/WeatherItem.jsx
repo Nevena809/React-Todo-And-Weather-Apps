@@ -1,53 +1,54 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import classes from "./WeatherItem.module.css";
-import { FaCloud } from "react-icons/fa";
+import WeatherContext from "../../store/WeatherContext";
+import getWeatherIcon from "../../util/weatherIcon";
+import Error from "../UI/Error";
 /* eslint-disable react/prop-types */
 
-const apiKey = "146ebbd2e0e3372876138c9ed29fc9d5";
-
-export default function WeatherItem({ city }) {
-  const [weatherData, setWeatherData] = useState(null);
+export default function WeatherItem() {
+  const { fetchCurrentWeather, fetchWeatherCity, weather, error } =
+    useContext(WeatherContext);
 
   useEffect(() => {
-    if (!city) {
-      return;
-    }
-    async function fetchData() {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setWeatherData(data);
-      } else {
-        console.error("Error fetching weather data:", response.status);
-      }
-    }
+    fetchCurrentWeather();
+  }, []);
 
-    fetchData();
-  }, [city]);
+  useEffect(() => {
+    fetchWeatherCity();
+  }, []);
 
-  if (!weatherData) {
+  if (!weather) {
     return <p>Loading...</p>;
   }
 
-  const { weather, main } = weatherData;
-  const description = weather[0].description || "Unknown";
-  const temperature = main.temp - 273.15;
-  const humidity = main.humidity;
+  const { description, temperature, humidity, id } = weather;
+  const { cityName } = weather;
 
-  return (
-    <>
+  const weatherIcon = getWeatherIcon(id);
+
+  let content;
+
+  if (error) {
+    content = (
+      <Error
+        title="City doesn't found!"
+        message="Enter a valid city name."
+      ></Error>
+    );
+  } else {
+    content = (
       <div className={classes.container}>
         <div className={classes.info}>
           <p>{description}</p>
-          <p>Humidity: {humidity}</p>
-          <p className={classes.temperature}>{temperature}°C</p>
+          <p>Humidity: {humidity}%</p>
+          <p className={classes.temperature}>
+            {(temperature - 273.15).toFixed()}°C
+          </p>
         </div>
-        <div className={classes.icon}>
-          <FaCloud size={100} />
-        </div>
+        <div className={classes.icon}>{weatherIcon}</div>
       </div>
-    </>
-  );
+    );
+  }
+
+  return <>{content}</>;
 }
