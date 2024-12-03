@@ -17,10 +17,9 @@
   color: #ece1fa;
 }
 
-/* Add this CSS for aligning the input and button side by side */
 .container {
   display: flex;
-  gap: 1rem; /* Adjust the space between the input and button */
+  gap: 1rem;
 }
 
 .input {
@@ -32,8 +31,7 @@
   border: 2px solid #d4b7f9;
   background-color: #f3e6f7;
   color: #4a3f56;
-  transition: all 0.3s ease-in-out;
-  flex: 1; /* Make the input grow to take available space */
+  flex: 1;
 }
 
 .input:focus {
@@ -42,25 +40,41 @@
   box-shadow: 0 0 12px rgba(122, 79, 207, 0.6);
 }
 
-.button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #a990fb;
-  color: #2a2630;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  font-weight: bold;
-  text-decoration: none;
-  transition: background-color 0.3s ease, transform 0.3s ease,
-    box-shadow 0.3s ease;
+@keyframes shakeUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(2px);
+  }
+  75% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
-.button:hover {
-  background-color: #8c6cf7;
-  transform: translateY(-4px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+.error {
+  display: block;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: 2px solid #6d0b0b;
+  background-color: #f9b8b8;
+  color: #6d0b0b;
+  animation: shakeUpDown 0.2s ease-in-out;
+}
+
+.error:focus {
+  border-color: #d4b7f9;
+  background-color: #f3e6f7;
+}
+
+.error::placeholder {
+  color: #6d0b0b;
 }

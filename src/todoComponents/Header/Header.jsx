@@ -2,6 +2,7 @@ import { MdPostAdd, MdMessage } from "react-icons/md";
 import classes from "./Header.module.css";
 import { useContext } from "react";
 import ModalContext from "../../store/ModalContext";
+import Button from "../../weatherComponents/UI/Button";
 
 export default function Header() {
   const modalCtx = useContext(ModalContext);
@@ -16,10 +17,10 @@ export default function Header() {
         Todo App
       </h1>
       <p>
-        <button onClick={handleShowModal} className={classes.button}>
+        <Button onClick={handleShowModal}>
           <MdPostAdd size={18} />
           New Post
-        </button>
+        </Button>
       </p>
     </div>
   );

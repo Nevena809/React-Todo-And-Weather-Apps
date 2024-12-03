@@ -1,7 +1,7 @@
 import { useContext, useRef, useState } from "react";
 import WeatherContext from "../../store/WeatherContext";
 import classes from "./WeatherHeader.module.css";
-// import Error from "../UI/Error";
+import Button from "../UI/Button";
 /* eslint-disable react/prop-types */
 
 export default function WeatherHeader() {
@@ -14,13 +14,12 @@ export default function WeatherHeader() {
     const name = cityRef.current.value.trim();
 
     if (!name) {
-      console.log("empty");
-
       setEmptyInput(true);
-      console.log(name);
+      return;
     }
+    setEmptyInput(false);
     fetchWeatherCity(name);
-    // console.log(name);
+    cityRef.current.value = "";
   }
   if (!weather) {
     return;
@@ -28,7 +27,19 @@ export default function WeatherHeader() {
 
   const { cityName, country } = weather;
 
-  if (error && emptyInput) {
+  const handleFocus = () => {
+    if (emptyInput) {
+      setEmptyInput(false);
+    }
+  };
+
+  const handleBlur = () => {
+    if (!cityRef.current.value.trim()) {
+      setEmptyInput(false);
+    }
+  };
+
+  if (error) {
     content = <h1>Not Found</h1>;
   } else {
     content = (
@@ -41,11 +52,18 @@ export default function WeatherHeader() {
   return (
     <div className={classes.header}>
       {content}
+
       <div className={classes.container}>
-        <input type="text" className={classes.input} ref={cityRef} />
-        <button onClick={handleCitySerach} className={classes.button}>
-          Add
-        </button>
+        <input
+          type="text"
+          className={emptyInput ? classes.error : classes.input}
+          placeholder={emptyInput ? "Field can't be empty!" : ""}
+          ref={cityRef}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+        />
+
+        <Button onClick={handleCitySerach}>Add</Button>
       </div>
     </div>
   );

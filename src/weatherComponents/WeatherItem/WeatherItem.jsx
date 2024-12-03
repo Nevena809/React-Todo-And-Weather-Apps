@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import classes from "./WeatherItem.module.css";
 import WeatherContext from "../../store/WeatherContext";
-import getWeatherIcon from "../../util/weatherIcon";
+import getWeatherIcon from "../../util/weatherIcon.jsx";
 import Error from "../UI/Error";
 /* eslint-disable react/prop-types */
 
@@ -21,10 +21,9 @@ export default function WeatherItem() {
     return <p>Loading...</p>;
   }
 
-  const { description, temperature, humidity, id } = weather;
-  const { cityName } = weather;
+  const { description, temperature, humidity, icon } = weather;
 
-  const weatherIcon = getWeatherIcon(id);
+  const weatherIcon = getWeatherIcon(icon);
 
   let content;
 
@@ -41,9 +40,7 @@ export default function WeatherItem() {
         <div className={classes.info}>
           <p>{description}</p>
           <p>Humidity: {humidity}%</p>
-          <p className={classes.temperature}>
-            {(temperature - 273.15).toFixed()}°C
-          </p>
+          <p className={classes.temperature}>{temperature.toFixed()}°C</p>
         </div>
         <div className={classes.icon}>{weatherIcon}</div>
       </div>
