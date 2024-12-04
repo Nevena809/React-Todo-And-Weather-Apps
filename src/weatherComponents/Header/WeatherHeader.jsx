@@ -22,7 +22,7 @@ export default function WeatherHeader() {
     cityRef.current.value = "";
   }
   if (!weather) {
-    return;
+    return <p>Loading...</p>;
   }
 
   const { cityName, country } = weather;

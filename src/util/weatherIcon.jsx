@@ -27,7 +27,7 @@ export default function getWeatherIcon(weatherId) {
   } else if (weatherId === 1003 || weatherId === 1006) {
     return <FaCloud></FaCloud>;
   } else if (weatherId === 1009 || weatherId === 1030) {
-    return "⛅️";
+    return "🌫️";
   } else if (
     weatherId === 1063 ||
     weatherId === 1066 ||

@@ -18,7 +18,7 @@ export default function WeatherItem() {
   }, []);
 
   if (!weather) {
-    return <p>Loading...</p>;
+    return;
   }
 
   const { description, temperature, humidity, icon } = weather;
@@ -40,7 +40,7 @@ export default function WeatherItem() {
         <div className={classes.info}>
           <p>{description}</p>
           <p>Humidity: {humidity}%</p>
-          <p className={classes.temperature}>{temperature.toFixed()}°C</p>
+          <p className={classes.temperature}>{Math.round(temperature)}°C</p>
         </div>
         <div className={classes.icon}>{weatherIcon}</div>
       </div>
