@@ -1,9 +1,13 @@
 .info {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  color: #333;
+  justify-content: space-around;
   width: 100%;
+  background: linear-gradient(145deg, #6a7ef9, #4c63d3);
+  border-radius: 20px;
+  border: 1px solid #5a6fb2;
+  height: 80px;
+  /* padding: 0.5rem; */
 }
 
 .icon {
@@ -17,27 +21,24 @@
 .day {
   font-weight: 700;
   color: white;
+  font-size: 0.9rem;
 }
 
 .temperature {
   font-weight: 700;
-  color: #ffd700; /* Example temperature color */
-  margin-left: 0.5rem; /* Adds space between temperature and icon */
+  color: #ffd700;
+  margin-left: 0.5rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column; /* Stack components vertically on small screens */
-    align-items: center;
-  }
-
   .info,
   .icon {
-    display: block; /* Stack vertically in smaller screens */
+    display: block;
     text-align: center;
   }
 
   .icon {
-    margin-top: 0.5rem; /* Adds space between icon and other elements on smaller screens */
+    margin-top: 0.5rem;
   }
 }

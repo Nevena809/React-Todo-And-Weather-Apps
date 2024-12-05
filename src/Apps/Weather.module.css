@@ -5,9 +5,23 @@
   flex-wrap: wrap;
 }
 
+.weatherItem {
+  flex: 1.5;
+}
+
+.sidebar {
+  flex: 1;
+}
+
 @media (max-width: 768px) {
   .weather-container {
     flex-direction: column;
     align-items: center;
+  }
+  .weather-item {
+    flex: 1 1 100%;
+  }
+  .sidebar {
+    flex: 1 1 100%;
   }
 }

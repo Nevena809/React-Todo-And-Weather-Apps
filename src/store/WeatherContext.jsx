@@ -8,15 +8,21 @@ const apiKey = "e3e92acc7bec4db3a1f132107240312";
 const url = "http://api.weatherapi.com/v1/";
 
 const WeatherContext = createContext({
-  weather: [],
+  weather: null,
+  weatherForcast: [],
+  hourlyWeather: [],
   fetchCurrentWeather: () => {},
   fetchWeatherCity: () => {},
   fetchForecastWeather: () => {},
+  fetchForecastWeatherCity: () => {},
+  fetchForecastHourlyWeather: () => {},
 });
 
 export function WeatherContextProvider({ children }) {
-  const [weatherData, setWeatherData] = useState([]);
+  const [weatherData, setWeatherData] = useState(null);
   const [error, setError] = useState(false);
+  const [weatherDataForcast, setWeatherDataForcast] = useState([]);
+  const [hourlyDataWeather, setHourlyDataWeather] = useState([]);
 
   async function fetchCurrentWeather() {
     const position = await new Promise((resolve, reject) => {
@@ -32,19 +38,15 @@ export function WeatherContextProvider({ children }) {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
 
-      setWeatherData((prevState) => [
-        {
-          ...prevState,
-          description: data.current.condition.text,
-          temperature: data.current.temp_c,
-          humidity: data.current.humidity,
-          icon: data.current.condition.code,
-          cityName: data.location.name,
-          country: data.location.country,
-        },
-      ]);
+      setWeatherData({
+        description: data.current.condition.text,
+        temperature: data.current.temp_c,
+        humidity: data.current.humidity,
+        icon: data.current.condition.code,
+        cityName: data.location.name,
+        country: data.location.country,
+      });
 
       // setWeatherData({
       //   description: data.weather[0].description,
@@ -71,17 +73,14 @@ export function WeatherContextProvider({ children }) {
     if (response.ok) {
       const data = await response.json();
 
-      setWeatherData((prevState) => [
-        {
-          ...prevState,
-          description: data.current.condition.text,
-          temperature: data.current.temp_c,
-          humidity: data.current.humidity,
-          icon: data.current.condition.code,
-          cityName: data.location.name,
-          country: data.location.country,
-        },
-      ]);
+      setWeatherData({
+        description: data.current.condition.text,
+        temperature: data.current.temp_c,
+        humidity: data.current.humidity,
+        icon: data.current.condition.code,
+        cityName: data.location.name,
+        country: data.location.country,
+      });
     } else {
       setError(error || "Something went wrong!");
     }
@@ -100,18 +99,103 @@ export function WeatherContextProvider({ children }) {
     );
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
 
-      setWeatherData((prevState) => [
+      // for (let i = 0; i < data.forecast.forecastday.length; i++) {
+      //   const forecastData = data.forecast.forecastday[i];
+
+      //   setWeatherDataForcast((prevState) => [
+      //     ...prevState,
+      //     {
+      //       description: data.current.condition.text,
+      //       maxTemperature: forecastData.day.maxtemp_c,
+      //       minTemperature: forecastData.day.mintemp_c,
+      //       day: forecastData.date,
+      //       icon: data.current.condition.code,
+      //     },
+      //   ]);
+      // }
+      const forecastData = data.forecast.forecastday.map((forecastDay) => ({
+        description: data.current.condition.text,
+        maxTemperature: forecastDay.day.maxtemp_c,
+        minTemperature: forecastDay.day.mintemp_c,
+        day: forecastDay.date,
+        icon: data.current.condition.code,
+      }));
+
+      setWeatherDataForcast(forecastData);
+    } else {
+      setError(error || "Something went wrong!");
+    }
+  }
+
+  async function fetchForecastWeatherCity(city) {
+    if (!city) {
+      return;
+    } else {
+      setError(false);
+    }
+    const response = await fetch(
+      `${url}forecast.json?key=${apiKey}&q=${city}&days=3`
+    );
+    if (response.ok) {
+      const data = await response.json();
+
+      const forecastData = data.forecast.forecastday.map((forecastDay) => ({
+        description: data.current.condition.text,
+        maxTemperature: forecastDay.day.maxtemp_c,
+        minTemperature: forecastDay.day.mintemp_c,
+        day: forecastDay.date,
+        icon: data.current.condition.code,
+      }));
+
+      setWeatherDataForcast(forecastData);
+    } else {
+      setError(error || "Something went wrong!");
+    }
+  }
+
+  async function fetchForecastHourlyWeather() {
+    const position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    const response = await fetch(
+      `${url}forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
+    );
+    if (response.ok) {
+      const data = await response.json();
+
+      console.log(data.forecast.forecastday[0].hour[0]);
+      console.log(data.forecast.forecastday[0].hour[0].condition.text);
+      const hourlyData = data.forecast.forecastday[0]?.hour[0];
+
+      setHourlyDataWeather([
         {
-          ...prevState,
-          description: data.current.condition.text,
-          maxTemperature: data.forecast.forecastday[0].day.maxtemp_c,
-          minTemperature: data.forecast.forecastday[0].day.mintemp_c,
-          day: data.forecast.forecastday[0].date,
-          icon: data.current.condition.code,
+          description: hourlyData.condition.text,
+          icon: hourlyData.condition.icon,
+          time: hourlyData.time,
+          temp: hourlyData.temp_c,
+          feelsLike: hourlyData.feelslike_c,
+          humidity: hourlyData.humidity,
         },
       ]);
+      // const hourlyData = data.forecast.forecastday[0]?.hour;
+
+      // const formattedHourlyData = hourlyData?.map((hour) => ({
+      //   description: hour.condition.text,
+      //   icon: hour.condition.icon,
+      //   time: hour.time,
+      //   temp: hour.temp_c,
+      //   feelsLike: hour.feelslike_c,
+      //   humidity: hour.humidity,
+      // }));
+
+      // setHourlyDataWeather(formattedHourlyData);
+
+      console.log(hourlyData);
     } else {
       setError(error || "Something went wrong!");
     }
@@ -119,10 +203,14 @@ export function WeatherContextProvider({ children }) {
 
   const weatherCtx = {
     weather: weatherData,
+    weatherForcast: weatherDataForcast,
+    hourlyWeather: hourlyDataWeather,
     error,
     fetchCurrentWeather,
     fetchWeatherCity,
     fetchForecastWeather,
+    fetchForecastWeatherCity,
+    fetchForecastHourlyWeather,
   };
 
   return (

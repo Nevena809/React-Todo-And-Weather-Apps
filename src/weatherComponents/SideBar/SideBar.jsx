@@ -1,20 +1,33 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import classes from "./SideBar.module.css";
 import WeatherContext from "../../store/WeatherContext";
 import SideBarItem from "./SideBarItem";
 
 export default function SideBar() {
-  const { weather } = useContext(WeatherContext);
+  const {
+    weatherForcast,
+    fetchForecastWeather,
+    fetchForecastWeatherCity,
+    error,
+  } = useContext(WeatherContext);
 
-  if (!weather || weather.length === 0) {
-    return <p>No weather data available.</p>;
-  }
+  useEffect(() => {
+    fetchForecastWeather();
+  }, []);
+
+  useEffect(() => {
+    fetchForecastWeatherCity();
+  }, []);
 
   return (
-    <ul className={classes.container}>
-      {weather.map((item) => (
-        <SideBarItem key={item.code} weather={item} />
-      ))}
-    </ul>
+    <>
+      {!error && (
+        <ul className={classes.container}>
+          {weatherForcast?.map((item) => (
+            <SideBarItem key={item.day} weather={item} />
+          ))}
+        </ul>
+      )}
+    </>
   );
 }

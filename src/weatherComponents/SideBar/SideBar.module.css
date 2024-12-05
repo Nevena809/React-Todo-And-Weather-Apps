@@ -1,19 +1,18 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   position: relative;
   margin: 1.5rem 0;
-  background: linear-gradient(145deg, #6a7ef9, #4c63d3);
-  border-radius: 20px;
-  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  padding-left: 0;
   animation: animate-in 0.8s ease-out forwards;
   transition: all 0.3s ease;
   max-width: 600px;
   width: 100%;
   overflow: hidden;
-  border: 1px solid #5a6fb2;
   flex-wrap: nowrap;
+  gap: 1rem; /* Add gap between flex items */
 }
 
 @keyframes animate-in {
@@ -27,46 +26,9 @@
   }
 }
 
-.info {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  color: #333;
-  width: 100%;
-}
-
-.icon {
-  display: inline-block;
-  margin-left: 0.5rem;
-  color: white;
-  font-size: 3rem;
-}
-
-.description,
-.day {
-  font-weight: 700;
-  color: white;
-}
-
-.temperature {
-  font-weight: 700;
-  color: #ffd700; /* Example temperature color */
-  margin-left: 0.5rem; /* Adds space between temperature and icon */
-}
-
 @media (max-width: 768px) {
   .container {
-    flex-direction: column; /* Stack components vertically on small screens */
+    flex-direction: column;
     align-items: center;
-  }
-
-  .info,
-  .icon {
-    display: block; /* Stack vertically in smaller screens */
-    text-align: center;
-  }
-
-  .icon {
-    margin-top: 0.5rem; /* Adds space between icon and other elements on smaller screens */
   }
 }
