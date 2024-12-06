@@ -16,6 +16,7 @@ const WeatherContext = createContext({
   fetchForecastWeather: () => {},
   fetchForecastWeatherCity: () => {},
   fetchForecastHourlyWeather: () => {},
+  fetchForecastHourlyWeatherCity: () => {},
 });
 
 export function WeatherContextProvider({ children }) {
@@ -163,39 +164,55 @@ export function WeatherContextProvider({ children }) {
     const longitude = position.coords.longitude;
 
     const response = await fetch(
-      `${url}forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=3`
+      `${url}forecast.json?key=${apiKey}&q=${latitude},${longitude}&days=1`
     );
     if (response.ok) {
       const data = await response.json();
 
-      console.log(data.forecast.forecastday[0].hour[0]);
-      console.log(data.forecast.forecastday[0].hour[0].condition.text);
-      const hourlyData = data.forecast.forecastday[0]?.hour[0];
+      const hourlyData = data.forecast.forecastday[0]?.hour;
 
-      setHourlyDataWeather([
-        {
-          description: hourlyData.condition.text,
-          icon: hourlyData.condition.icon,
-          time: hourlyData.time,
-          temp: hourlyData.temp_c,
-          feelsLike: hourlyData.feelslike_c,
-          humidity: hourlyData.humidity,
-        },
-      ]);
-      // const hourlyData = data.forecast.forecastday[0]?.hour;
+      const filteredHourlyData = hourlyData
+        ?.filter((_, index) => index % 2 === 0)
+        .map((hour) => ({
+          description: hour.condition.text,
+          icon: hour.condition.code,
+          time: hour.time,
+          temp: hour.temp_c,
+          feelsLike: hour.feelslike_c,
+          humidity: hour.humidity,
+        }));
 
-      // const formattedHourlyData = hourlyData?.map((hour) => ({
-      //   description: hour.condition.text,
-      //   icon: hour.condition.icon,
-      //   time: hour.time,
-      //   temp: hour.temp_c,
-      //   feelsLike: hour.feelslike_c,
-      //   humidity: hour.humidity,
-      // }));
+      setHourlyDataWeather(filteredHourlyData);
 
-      // setHourlyDataWeather(formattedHourlyData);
+      console.log(filteredHourlyData);
+    } else {
+      setError(error || "Something went wrong!");
+    }
+  }
 
-      console.log(hourlyData);
+  async function fetchForecastHourlyWeatherCity(city) {
+    const response = await fetch(
+      `${url}forecast.json?key=${apiKey}&q=${city}&days=1`
+    );
+    if (response.ok) {
+      const data = await response.json();
+
+      const hourlyData = data.forecast.forecastday[0]?.hour;
+
+      const filteredHourlyData = hourlyData
+        ?.filter((_, index) => index % 2 === 0)
+        .map((hour) => ({
+          description: hour.condition.text,
+          icon: hour.condition.code,
+          time: hour.time,
+          temp: hour.temp_c,
+          feelsLike: hour.feelslike_c,
+          humidity: hour.humidity,
+        }));
+
+      setHourlyDataWeather(filteredHourlyData);
+
+      console.log(filteredHourlyData);
     } else {
       setError(error || "Something went wrong!");
     }
@@ -211,6 +228,7 @@ export function WeatherContextProvider({ children }) {
     fetchForecastWeather,
     fetchForecastWeatherCity,
     fetchForecastHourlyWeather,
+    fetchForecastHourlyWeatherCity,
   };
 
   return (

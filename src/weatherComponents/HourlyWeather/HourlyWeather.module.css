@@ -1,35 +1,44 @@
 .container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  margin: 1.5rem 0;
-  padding: 2rem 3rem;
-  border-radius: 20px;
-  max-width: 600px;
-  width: 100%;
-  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 5px;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 1.5rem 0;
+  border-radius: 15px;
+  width: 280px;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
 }
 
 .info {
-  flex: 1;
   color: white;
   font-family: "Roboto", sans-serif;
-  text-align: left;
 }
 
 .info p {
   line-height: 1.6;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
   text-transform: uppercase;
   letter-spacing: 1.6px;
-  transition: color 0.3s ease;
 }
 
 .info .temperature {
-  font-size: 3.5rem;
+  font-size: 1rem;
   font-weight: 700;
   margin-top: 1rem;
   letter-spacing: 1px;
@@ -37,7 +46,7 @@
 }
 
 .icon {
-  font-size: 8.5rem;
+  font-size: 2rem;
   color: white;
   transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -46,21 +55,14 @@
   transform: scale(1.2);
 }
 
-/* .container:hover {
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    transform: translateY(-5px);
-  } */
-
 @media (max-width: 768px) {
   .container {
-    padding: 1.5rem 2rem;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
   }
 
-  .icon {
-    margin-top: 1.5rem;
-    font-size: 3.5rem;
+  .card {
+    width: 90%;
   }
 
   .info p {
@@ -70,5 +72,9 @@
   .temperature {
     font-size: 2.5rem;
     margin-top: 1.5rem;
+  }
+
+  .icon {
+    font-size: 4rem;
   }
 }

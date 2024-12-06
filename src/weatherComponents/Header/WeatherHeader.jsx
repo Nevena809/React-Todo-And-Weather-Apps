@@ -5,8 +5,13 @@ import Button from "../UI/Button";
 /* eslint-disable react/prop-types */
 
 export default function WeatherHeader() {
-  const { weather, fetchWeatherCity, fetchForecastWeatherCity, error } =
-    useContext(WeatherContext);
+  const {
+    weather,
+    fetchWeatherCity,
+    fetchForecastWeatherCity,
+    error,
+    fetchForecastHourlyWeatherCity,
+  } = useContext(WeatherContext);
   const [emptyInput, setEmptyInput] = useState(false);
   const cityRef = useRef();
 
@@ -22,6 +27,7 @@ export default function WeatherHeader() {
     setEmptyInput(false);
     fetchWeatherCity(name);
     fetchForecastWeatherCity(name);
+    fetchForecastHourlyWeatherCity(name);
 
     cityRef.current.value = "";
   }
